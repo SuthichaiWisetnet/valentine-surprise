@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import FloatingHearts from "../components/FloatingHearts";
 import { createConfetti } from "../components/effects";
@@ -32,10 +32,9 @@ function MemoryGame() {
   }, []);
 
   useEffect(() => {
-    // Use timeout to avoid "setState in effect" warning during mount
-    const timer = setTimeout(() => initGame(), 0);
-    return () => clearTimeout(timer);
-  }, [initGame]);
+    initGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFlip = (index) => {
     if (
