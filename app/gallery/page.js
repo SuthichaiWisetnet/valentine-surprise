@@ -42,7 +42,13 @@ export default function GalleryPage() {
   ];
 
   return (
-    <main className="relative z-10 min-h-screen px-4 py-8 pb-24 overflow-hidden bg-[url('/bg-dot.png')]">
+    <main
+      className="relative z-10 min-h-screen px-4 py-8 pb-24 overflow-hidden bg-cream-paper"
+      style={{
+        backgroundImage: "radial-gradient(#d1d5db 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
+      }}
+    >
       <FloatingHearts />
 
       {/* Header */}
@@ -58,11 +64,11 @@ export default function GalleryPage() {
 
       {/* Photo Gallery - Polaroid Grid */}
       <div className="max-w-7xl mx-auto px-4 mb-20 overflow-visible">
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-8 p-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 p-4">
           {photos.map((photo, index) => (
             <div
               key={photo.id}
-              className="break-inside-avoid relative group cursor-pointer animate-fade-in-up inline-block w-full"
+              className="relative group cursor-pointer animate-fade-in-up w-full"
               style={{
                 animationDelay: `${index * 0.1}s`,
               }}
@@ -71,19 +77,24 @@ export default function GalleryPage() {
                 setLightboxOpen(true);
               }}
             >
-              <div className="polaroid" style={{ "--rotation": photo.rotate }}>
+              <div
+                className="polaroid h-full flex flex-col"
+                style={{ "--rotation": photo.rotate }}
+              >
                 {/* Optional: Tape on some photos */}
                 {index % 3 === 0 && <div className="tape"></div>}
 
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={500}
-                  height={500}
-                  className="polaroid-img"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                />
-                <div className="mt-3 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="aspect-square relative overflow-hidden bg-gray-100">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    priority={index < 4}
+                  />
+                </div>
+                <div className="mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="font-handwriting text-slate-500 text-lg">
                     My Love ❤️
                   </p>

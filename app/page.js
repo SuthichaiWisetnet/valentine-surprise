@@ -70,7 +70,13 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12 pb-24 overflow-hidden bg-[url('/bg-paper.png')]">
+    <main
+      className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12 pb-24 overflow-hidden bg-cream-paper"
+      style={{
+        backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
+        backgroundSize: "20px 20px",
+      }}
+    >
       <FloatingHearts />
 
       {/* Hero Section: Scrapbook Title */}

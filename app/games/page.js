@@ -76,8 +76,8 @@ function MemoryGame() {
             onClick={() => handleFlip(i)}
             className={`w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center text-3xl cursor-pointer transition-all duration-300 transform hover:scale-105 shadow-sm border-2 ${
               flipped.includes(i) || matched.includes(i)
-                ? "bg-white rotate-y-180 border-rose-300"
-                : "bg-rose-100 border-rose-200 text-transparent"
+                ? "bg-white border-rose-300"
+                : "bg-rose-100 border-rose-200 text-rose-300"
             }`}
           >
             {flipped.includes(i) || matched.includes(i) ? card.emoji : "❓"}
