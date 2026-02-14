@@ -42,41 +42,52 @@ export default function GalleryPage() {
   ];
 
   return (
-    <main className="relative z-10 min-h-screen px-4 py-8 pb-24">
+    <main className="relative z-10 min-h-screen px-4 py-8 pb-24 overflow-hidden">
       <FloatingHearts />
 
       {/* Header */}
-      <div className="text-center mb-8 animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-dancing text-rose-800 mb-2">
-          📸 <span className="text-gradient">แกลเลอรี่</span>ความทรงจำ
+      <div className="text-center mb-12 animate-fade-in-up">
+        <h1 className="text-5xl md:text-7xl font-dancing font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)] mb-4">
+          📸 <span className="text-gradient drop-shadow-none">แกลเลอรี่</span>
+          ความทรงจำ
         </h1>
-        <p className="text-slate-600 font-prompt">รวมภาพประทับใจของเรา</p>
+        <div className="glass inline-block px-6 py-2">
+          <p className="text-rose-700 font-prompt text-lg">
+            รวมภาพประทับใจของเรา 💕
+          </p>
+        </div>
       </div>
 
-      {/* Photo Gallery Grid */}
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {photos.map((photo) => (
+      {/* Photo Gallery Masonry */}
+      <div className="max-w-7xl mx-auto px-4 mb-16">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          {photos.map((photo, index) => (
             <div
               key={photo.id}
-              className="gallery-item card-hover rounded-2xl overflow-hidden relative group aspect-square cursor-pointer shadow-md bg-white"
+              className="break-inside-avoid relative group cursor-pointer animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
               onClick={() => {
                 setSelectedImage(photo);
                 setLightboxOpen(true);
               }}
             >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                unoptimized // Adding unoptimized to avoid potential format issues like before
-              />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                <span className="text-white text-3xl font-bold opacity-80">
-                  ❤️
-                </span>
+              <div className="glass-card overflow-hidden p-2 transform transition-all duration-300 group-hover:rotate-2 group-hover:scale-[1.02]">
+                <div className="relative rounded-xl overflow-hidden shadow-inner">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={500}
+                    height={500}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center pb-4">
+                    <span className="text-white text-3xl animate-bounce">
+                      ❤️
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -84,25 +95,25 @@ export default function GalleryPage() {
       </div>
 
       {/* Video Section */}
-      <div className="max-w-4xl mx-auto mt-12">
-        <h2 className="text-3xl font-dancing text-rose-800 text-center mb-6">
-          🎥 วิดีโอความทรงจำ
-        </h2>
+      <div className="max-w-5xl mx-auto mt-12 animate-slide-up">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl font-dancing font-bold text-white drop-shadow-md mb-2">
+            🎥 วิดีโอความทรงจำ
+          </h2>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {videos.map((video) => (
-            <div
-              key={video.id}
-              className="card-hover bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100"
-            >
-              <div className="bg-black relative">
-                <video controls className="w-full h-auto block">
+            <div key={video.id} className="glass-card p-4 group">
+              <div className="rounded-xl overflow-hidden shadow-lg border border-white/20 relative">
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
+                <video controls className="w-full h-auto block relative z-0">
                   <source src={video.src} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </div>
-              <div className="p-4">
-                <h3 className="font-prompt text-rose-700 text-lg">
+              <div className="mt-4 text-center">
+                <h3 className="font-dancing text-2xl text-rose-800 font-bold group-hover:text-rose-600 transition-colors">
                   {video.title}
                 </h3>
               </div>
@@ -114,29 +125,32 @@ export default function GalleryPage() {
       {/* Lightbox */}
       {lightboxOpen && selectedImage && (
         <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in-up"
           onClick={() => setLightboxOpen(false)}
         >
-          <div className="relative max-w-4xl w-full max-h-[90vh] flex items-center justify-center">
-            <div className="relative w-full h-[85vh]">
-              <Image
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                fill
-                className="object-contain rounded-lg shadow-2xl"
-                sizes="100vw"
-                unoptimized
-              />
+          <div className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center">
+            {/* Glossy Image Container */}
+            <div className="relative w-full h-[80vh] p-2 glass rounded-2xl shadow-[0_0_50px_rgba(255,107,157,0.3)]">
+              <div className="relative w-full h-full rounded-xl overflow-hidden bg-black">
+                <Image
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                  unoptimized
+                />
+              </div>
             </div>
 
             <button
-              className="absolute -top-12 right-0 md:-right-12 text-white/80 hover:text-white text-4xl font-bold p-2 hover:bg-white/10 rounded-full transition"
+              className="mt-6 px-8 py-3 bg-white/20 hover:bg-white/40 border border-white/50 text-white rounded-full font-prompt transition backdrop-blur-md flex items-center gap-2"
               onClick={(e) => {
                 e.stopPropagation();
                 setLightboxOpen(false);
               }}
             >
-              ×
+              <span>ปิด</span> ✕
             </button>
           </div>
         </div>
@@ -144,9 +158,9 @@ export default function GalleryPage() {
 
       <Link
         href="/"
-        className="mt-12 text-slate-500 hover:text-rose-500 transition font-prompt flex items-center justify-center gap-2"
+        className="mt-16 inline-flex items-center gap-2 text-white/80 hover:text-white transition font-prompt bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full backdrop-blur-sm border border-white/30"
       >
-        🏠 กลับหน้าหลัก
+        <span>🏠</span> กลับหน้าหลัก
       </Link>
     </main>
   );

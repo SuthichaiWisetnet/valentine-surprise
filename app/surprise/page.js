@@ -5,7 +5,7 @@ import Link from "next/link";
 import FloatingHearts from "../components/FloatingHearts";
 import { createConfetti } from "../components/effects";
 
-function GiftBox({ color, ribbonColor, message, title }) {
+function GiftBox({ color, ribbonColor, message, title, delay }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -15,65 +15,91 @@ function GiftBox({ color, ribbonColor, message, title }) {
   };
 
   return (
-    <div className="text-center">
+    <div
+      className="text-center animate-fade-in-up"
+      style={{ animationDelay: `${delay}s` }}
+    >
       <div
-        className="cursor-pointer mx-auto relative"
+        className="cursor-pointer mx-auto relative group perspective-1000"
         onClick={handleOpen}
-        style={{ width: "200px", height: "200px", perspective: "1000px" }}
+        style={{ width: "200px", height: "200px" }}
       >
+        {/* Glow Effect behind box */}
+        <div
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-${color}/50 blur-2xl rounded-full -z-10 transition-all duration-500 ${isOpen ? "scale-150 opacity-80" : "scale-100 opacity-40 group-hover:scale-125 group-hover:opacity-60"}`}
+          style={{ backgroundColor: color }}
+        />
+
         {/* Gift Box Base */}
         <div
-          className="absolute bottom-0 w-full h-36 rounded-xl shadow-xl"
+          className="absolute bottom-0 w-full h-36 rounded-xl shadow-2xl transition-transform duration-300 group-hover:scale-105"
           style={{
-            background: `linear-gradient(135deg, ${color}, ${color}dd)`,
+            background: `linear-gradient(135deg, ${color}, ${color}cc)`,
+            boxShadow: `0 10px 30px -5px ${color}80`,
           }}
         >
           {/* Vertical Ribbon */}
           <div
-            className="absolute w-8 h-full left-1/2 -translate-x-1/2"
-            style={{ background: ribbonColor }}
+            className="absolute w-8 h-full left-1/2 -translate-x-1/2 shadow-inner"
+            style={{
+              background: `linear-gradient(to right, ${ribbonColor}, #fff, ${ribbonColor})`,
+            }}
           />
           {/* Horizontal Ribbon */}
           <div
-            className="absolute h-8 w-full top-1/2 -translate-y-1/2"
-            style={{ background: ribbonColor }}
+            className="absolute h-8 w-full top-1/2 -translate-y-1/2 shadow-inner"
+            style={{
+              background: `linear-gradient(to bottom, ${ribbonColor}, #fff, ${ribbonColor})`,
+            }}
           />
           {/* Content */}
           <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-              isOpen ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${
+              isOpen
+                ? "opacity-100 -translate-y-5 scale-125"
+                : "opacity-0 scale-50"
             }`}
           >
-            <span className="text-4xl">{message}</span>
+            <span className="text-6xl drop-shadow-md animate-bounce">
+              {message}
+            </span>
           </div>
         </div>
 
         {/* Gift Box Lid */}
         <div
-          className={`absolute bottom-32 w-52 -left-1.5 h-12 rounded-xl shadow-lg transition-transform duration-1000 origin-bottom ${
-            isOpen ? "-rotate-x-120 -translate-y-5" : ""
+          className={`absolute bottom-32 w-52 -left-1.5 h-12 rounded-xl shadow-lg transition-all duration-700 origin-bottom ease-out z-20 ${
+            isOpen
+              ? "-rotate-x-120 -translate-y-12 opacity-0"
+              : "group-hover:-translate-y-2"
           }`}
           style={{
             background: `linear-gradient(135deg, ${color}dd, ${color})`,
+            boxShadow: `0 5px 15px -3px ${color}60`,
           }}
         >
           <div
             className="absolute h-full w-8 left-1/2 -translate-x-1/2 rounded-t-xl"
-            style={{ background: ribbonColor }}
+            style={{
+              background: `linear-gradient(to right, ${ribbonColor}, #fff, ${ribbonColor})`,
+            }}
           />
         </div>
 
         {/* Bow */}
         <div
-          className={`absolute -top-8 left-1/2 -translate-x-1/2 text-5xl z-10 transition-all duration-500 ${
-            isOpen ? "-translate-y-8 scale-125" : ""
+          className={`absolute -top-8 left-1/2 -translate-x-1/2 text-6xl z-30 transition-all duration-700 ${
+            isOpen
+              ? "-translate-y-20 rotate-12 opacity-0 scale-150"
+              : "animate-float-fast group-hover:scale-110"
           }`}
+          style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.2))" }}
         >
           🎀
         </div>
       </div>
-      <p className="text-slate-600 font-prompt mt-4 text-sm font-medium">
-        {isOpen ? title : "กดเพื่อเปิด"}
+      <p className="text-rose-800 font-prompt mt-6 text-lg font-semibold bg-white/40 backdrop-blur-sm px-4 py-1 rounded-full inline-block">
+        {isOpen ? title : "แตะเพื่อเปิด"}
       </p>
     </div>
   );
@@ -124,84 +150,102 @@ Happy Valentine's Day! 🌹❤️🌹`,
     createConfetti();
     setTimeout(() => createConfetti(), 500);
     setTimeout(() => createConfetti(), 1000);
+    setTimeout(() => createConfetti(), 1500);
   };
 
   return (
-    <main className="relative z-10 min-h-screen px-4 py-8 pb-24">
+    <main className="relative z-10 min-h-screen px-4 py-8 pb-24 overflow-hidden">
       <FloatingHearts />
 
       {/* Header */}
-      <div className="text-center mb-8 animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-dancing text-rose-800 mb-2">
-          🎁 <span className="text-gradient">เซอร์ไพรส์</span>
+      <div className="text-center mb-12 animate-fade-in-up">
+        <h1 className="text-5xl md:text-7xl font-dancing font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)] mb-4">
+          🎁 <span className="text-gradient drop-shadow-none">เซอร์ไพรส์</span>
         </h1>
-        <p className="text-slate-600 font-prompt">กดที่กล่องเพื่อเปิดดู!</p>
+        <p className="text-white/90 font-prompt text-xl drop-shadow-md">
+          ของขวัญแด่คนพิเศษ
+        </p>
       </div>
 
       {/* Gift Boxes Grid */}
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-8 justify-items-center mb-12">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-y-20 md:gap-12 justify-items-center mb-20 px-4">
         {gifts.map((gift, i) => (
-          <GiftBox key={i} {...gift} />
+          <GiftBox key={i} {...gift} delay={i * 0.2} />
         ))}
       </div>
 
       {/* Special Surprise Section */}
-      <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-3xl font-dancing text-rose-800 mb-6">
-          ✨ เซอร์ไพรส์พิเศษ
+      <div className="max-w-2xl mx-auto text-center relative mt-16 animate-fade-in-up">
+        {/* Background Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-100 bg-rose-500/20 blur-[80px] rounded-full -z-10 animate-pulse-glow" />
+
+        <h2 className="text-4xl font-dancing font-bold text-rose-800 mb-8 drop-shadow-sm">
+          ✨ เซอร์ไพรส์พิเศษ ✨
         </h2>
 
         {/* Big Gift Box */}
-        <div className="flex justify-center mb-8 mt-12">
+        <div className="flex justify-center mb-10 mt-16 relative">
           <div
-            className="cursor-pointer transform scale-125 hover:scale-150 transition-transform"
+            className="cursor-pointer transform hover:scale-110 transition-transform duration-500"
             onClick={openSpecialGift}
           >
-            <div
-              className="relative"
-              style={{ width: "200px", height: "200px" }}
-            >
+            <div className="relative group w-60 h-60">
               {/* Gift Box Base */}
-              <div className="absolute bottom-0 w-full h-36 rounded-xl shadow-xl bg-linear-to-br from-pink-400 to-rose-500">
-                <div className="absolute w-8 h-full left-1/2 -translate-x-1/2 bg-yellow-400" />
-                <div className="absolute h-8 w-full top-1/2 -translate-y-1/2 bg-yellow-400" />
+              <div className="absolute bottom-0 w-full h-44 rounded-2xl shadow-2xl bg-linear-to-br from-pink-500 to-rose-600 border-2 border-white/20">
+                <div className="absolute w-10 h-full left-1/2 -translate-x-1/2 bg-yellow-400 shadow-lg" />
+                <div className="absolute h-10 w-full top-1/2 -translate-y-1/2 bg-yellow-400 shadow-lg" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-4xl">🎁</span>
+                  <span className="text-6xl animate-pulse">🎁</span>
                 </div>
               </div>
+
               {/* Lid */}
-              <div className="absolute bottom-32 w-52 -left-1.5 h-12 rounded-xl shadow-lg bg-linear-to-br from-rose-500 to-pink-400">
-                <div className="absolute h-full w-8 left-1/2 -translate-x-1/2 bg-yellow-400 rounded-t-xl" />
+              <div className="absolute bottom-40 w-64 -left-2 h-16 rounded-xl shadow-xl bg-linear-to-br from-rose-600 to-pink-500 border-2 border-white/20 group-hover:-translate-y-4 transition-transform duration-500">
+                <div className="absolute h-full w-10 left-1/2 -translate-x-1/2 bg-yellow-400 rounded-t-xl shadow-inner" />
               </div>
+
               {/* Bow */}
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-5xl z-10 animate-heartbeat text-rose-500">
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-7xl z-10 animate-heartbeat text-rose-500 drop-shadow-xl group-hover:scale-125 transition-transform duration-500">
                 🎀
               </div>
             </div>
           </div>
         </div>
 
-        <p className="text-slate-600 font-prompt">
+        <p className="text-rose-700 font-prompt text-lg bg-white/50 backdrop-blur-md px-6 py-2 rounded-full inline-block shadow-sm">
           กดเพื่อเปิดเซอร์ไพรส์พิเศษ!
         </p>
       </div>
 
       {/* Message Modal */}
       {showMessage && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white p-8 rounded-3xl text-center max-w-md animate-bounce-in shadow-2xl border border-rose-100">
-            <div className="text-6xl mb-4">{currentMessage.emoji}</div>
-            <h3 className="text-3xl font-dancing text-rose-800 mb-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fade-in-up">
+          <div className="glass p-8 md:p-12 rounded-4xl text-center max-w-lg w-full relative overflow-hidden shadow-[0_0_50px_rgba(255,107,157,0.5)]">
+            {/* Sparkles */}
+            <div className="absolute top-4 left-4 text-3xl animate-bounce">
+              ✨
+            </div>
+            <div
+              className="absolute bottom-4 right-4 text-3xl animate-bounce"
+              style={{ animationDelay: "0.5s" }}
+            >
+              ✨
+            </div>
+
+            <div className="text-8xl mb-6 animate-heartbeat">🎉</div>
+            <h3 className="text-4xl md:text-5xl font-dancing font-bold text-rose-800 mb-6 drop-shadow-sm">
               {currentMessage.title}
             </h3>
-            <p className="text-slate-600 text-lg font-prompt whitespace-pre-line leading-relaxed">
-              {currentMessage.content}
-            </p>
+            <div className="bg-white/60 rounded-2xl p-6 shadow-inner mb-8">
+              <p className="text-slate-700 text-lg md:text-xl font-prompt whitespace-pre-line leading-loose">
+                {currentMessage.content}
+              </p>
+            </div>
             <button
               onClick={() => setShowMessage(false)}
-              className="mt-6 px-6 py-3 bg-rose-500 rounded-full text-white font-prompt hover:scale-105 transition shadow-md"
+              className="px-10 py-4 bg-linear-to-r from-rose-500 to-pink-500 rounded-full text-white font-prompt text-lg font-semibold hover:scale-105 hover:shadow-lg transition-all transform active:scale-95"
             >
-              ปิด
+              ปิดด้วยความรัก 💕
             </button>
           </div>
         </div>
@@ -209,9 +253,9 @@ Happy Valentine's Day! 🌹❤️🌹`,
 
       <Link
         href="/"
-        className="mt-8 text-slate-500 hover:text-rose-500 transition font-prompt flex items-center justify-center gap-2"
+        className="mt-16 inline-flex items-center gap-2 text-white/80 hover:text-white transition font-prompt bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full backdrop-blur-sm border border-white/30"
       >
-        🏠 กลับหน้าหลัก
+        <span>🏠</span> กลับหน้าหลัก
       </Link>
     </main>
   );

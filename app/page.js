@@ -25,75 +25,94 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const welcomeMessages = [
-    "ขอบคุณที่เข้ามาในชีวิต... 💕",
-    "คุณคือคนพิเศษที่สุดของฉัน ❤️",
-    "รักนะ... ตลอดไป 💖",
-  ];
-
-  const quickNavItems = [
-    { href: "/anniversary", icon: "⏰", label: "นับวันรัก" },
-    { href: "/gallery", icon: "📸", label: "แกลเลอรี่" },
-    { href: "/playlist", icon: "🎵", label: "เพลงของเรา" },
-    { href: "/games", icon: "🎮", label: "เกม" },
-    { href: "/love-letter", icon: "💌", label: "จดหมายรัก" },
-    { href: "/surprise", icon: "🎁", label: "เซอร์ไพรส์" },
+  const menuItems = [
+    {
+      href: "/anniversary",
+      icon: "⏰",
+      title: "Anniversary",
+      desc: "นับเวลาแห่งความรัก",
+    },
+    {
+      href: "/gallery",
+      icon: "📸",
+      title: "Gallery",
+      desc: "ภาพทรงจำของเรา",
+    },
+    {
+      href: "/playlist",
+      icon: "🎵",
+      title: "Playlist",
+      desc: "เพลงสื่อรัก",
+    },
+    { href: "/games", icon: "🎮", title: "Games", desc: "เล่นเกมกันเถอะ" },
+    {
+      href: "/love-letter",
+      icon: "💌",
+      title: "Love Letter",
+      desc: "จดหมายจากใจ",
+    },
+    {
+      href: "/surprise",
+      icon: "🎁",
+      title: "Surprise",
+      desc: "กล่องของขวัญ",
+    },
   ];
 
   return (
-    <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 pb-10">
+    <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12 pb-24 overflow-hidden">
       <FloatingHearts />
 
-      {/* Welcome Section */}
-      <div className="text-center max-w-4xl mx-auto animate-fade-in-up">
-        {/* Love Icon */}
-        <div className="text-8xl md:text-9xl mb-6 animate-heartbeat text-rose-500">
-          💕
-        </div>
-
-        {/* Title */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-dancing text-rose-800 mb-4 drop-shadow-sm">
-          สำหรับ<span className="text-gradient">คนพิเศษ</span>
+      {/* Hero Section */}
+      <div className="z-10 text-center mb-12 animate-fade-in-up relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-pink-400/20 blur-[100px] rounded-full -z-10 animate-pulse-glow" />
+        <h1 className="text-6xl md:text-8xl font-dancing font-bold text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.2)] mb-4 leading-tight">
+          Happy <br className="md:hidden" />
+          <span className="text-gradient drop-shadow-none">
+            Valentine&apos;s
+          </span>{" "}
+          Day
         </h1>
+        <p className="text-xl md:text-2xl font-prompt text-white/90 drop-shadow-md mt-4">
+          เซอร์ไพรส์สุดพิเศษสำหรับคนพิเศษของพี่ 💕
+        </p>
 
-        {/* Typewriter Message */}
-        <div className="h-16 flex items-center justify-center">
-          <p className="text-xl md:text-2xl text-slate-600 font-prompt">
-            <TypeWriter texts={welcomeMessages} />
+        {/* Counter Glass */}
+        <div className="glass inline-block mt-8 px-8 py-4 animate-float-slow">
+          <p className="text-rose-700 font-prompt text-lg">
+            เรารักกันมาแล้ว...
           </p>
-        </div>
-
-        {/* Love Stats */}
-        <div className="bg-white rounded-3xl p-6 md:p-8 mt-8 mb-10 inline-block shadow-sm border border-slate-100">
-          <p className="text-slate-500 text-lg">รักกันมาแล้ว</p>
-          <div className="text-3xl md:text-4xl font-dancing text-rose-600 mt-2">
-            {totalDays} วัน {hours} ชั่วโมง
+          <div className="text-3xl font-bold text-rose-600 font-dancing mt-1">
+            {totalDays} วัน {hours} ชั่วโมง ❤️
           </div>
-        </div>
-
-        {/* Enter Button */}
-        <div className="mt-8">
-          <Link
-            href="/anniversary"
-            className="inline-block px-10 py-4 bg-rose-500 rounded-full text-white text-xl font-prompt 
-                      shadow-md hover:bg-rose-600 hover:scale-105 transition-all duration-300 animate-pulse-glow"
-          >
-            💖 เริ่มต้นเซอร์ไพรส์
-          </Link>
         </div>
       </div>
 
-      {/* Quick Navigation Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-16 max-w-6xl mx-auto px-4 w-full">
-        {quickNavItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="card-hover bg-white rounded-2xl p-4 text-center shadow-sm border border-rose-50 hover:border-rose-200 transition-all"
-          >
-            <div className="text-4xl mb-2">{item.icon}</div>
-            <div className="text-slate-600 text-sm font-prompt">
-              {item.label}
+      {/* Menu Grid */}
+      <div className="z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto w-full px-4">
+        {menuItems.map((item, index) => (
+          <Link href={item.href} key={index} className="block group">
+            <div
+              className={`glass-card p-8 flex flex-col items-center justify-center text-center h-64 relative overflow-hidden transition-all duration-500`}
+              style={{ animationDelay: `${index * 0.15}s` }}
+            >
+              {/* Glowing Background on Hover */}
+              <div className="absolute inset-0 bg-linear-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="text-6xl mb-6 transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 drop-shadow-lg">
+                {item.icon}
+              </div>
+              <h2 className="text-3xl font-dancing font-bold text-rose-700 group-hover:text-rose-900 transition-colors drop-shadow-sm relative z-10">
+                {item.title}
+              </h2>
+              <p className="text-slate-600 font-prompt mt-2 text-lg group-hover:text-slate-800 transition-colors relative z-10">
+                {item.desc}
+              </p>
+
+              {/* Floating Particles in Card */}
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 text-2xl animate-bounce">
+                ✨
+              </div>
             </div>
           </Link>
         ))}
