@@ -23,9 +23,9 @@ export default function GalleryPage() {
     { id: 11, src: "/11.jpeg", alt: "Photo 11" },
     { id: 12, src: "/12.jpeg", alt: "Photo 12" },
     { id: 13, src: "/IMG_6198.png", alt: "Special Photo" },
-    { id: 14, src: "/13.jpg", alt: "Photo 14" },
+    { id: 14, src: "/13.JPG", alt: "Photo 14" },
     { id: 15, src: "/14.jpg", alt: "Photo 15" },
-    { id: 16, src: "/15.png", alt: "Photo 16" },
+    { id: 16, src: "/15.PNG", alt: "Photo 16" },
   ];
 
   const videos = [
