@@ -5,6 +5,8 @@ import Link from "next/link";
 import FloatingHearts from "../components/FloatingHearts";
 import { createConfetti } from "../components/effects";
 
+import LoveQuiz from "../components/LoveQuiz";
+
 // Memory Game Component
 function MemoryGame() {
   const [cards, setCards] = useState([]);
@@ -93,95 +95,6 @@ function MemoryGame() {
   );
 }
 
-// Quiz Component
-function LoveQuiz() {
-  const [currentQ, setCurrentQ] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-
-  const questions = [
-    {
-      q: "💕 เราเจอกันครั้งแรกที่ไหน?",
-      options: ["ร้านกาแฟ", "มหาวิทยาลัย", "ออนไลน์", "งานปาร์ตี้"],
-      correct: 0,
-    },
-    {
-      q: "🍽️ อาหารจานโปรดของเราคืออะไร?",
-      options: ["สุกี้", "ส้มตำ", "พิซซ่า", "ราเมน"],
-      correct: 2,
-    },
-    {
-      q: "🎬 หนังเรื่องโปรดของเราคือ?",
-      options: ["หนังรัก", "หนังผจญภัย", "หนังตลก", "หนังสยองขวัญ"],
-      correct: 0,
-    },
-    {
-      q: "💖 สิ่งที่รักที่สุดในตัวอีกฝ่าย?",
-      options: ["รอยยิ้ม", "ความใจดี", "อารมณ์ขัน", "ทุกอย่าง"],
-      correct: 3,
-    },
-  ];
-
-  const handleAnswer = (index) => {
-    if (index === questions[currentQ].correct) setScore((s) => s + 1);
-    if (currentQ + 1 < questions.length) {
-      setCurrentQ((c) => c + 1);
-    } else {
-      setShowResult(true);
-      createConfetti();
-    }
-  };
-
-  const reset = () => {
-    setCurrentQ(0);
-    setScore(0);
-    setShowResult(false);
-  };
-
-  if (showResult) {
-    return (
-      <div className="bg-white p-8 rounded-3xl text-center max-w-lg mx-auto shadow-xl border border-rose-100">
-        <div className="text-6xl mb-4">🎉💕</div>
-        <h3 className="text-3xl font-dancing text-rose-600 mb-4">ผลลัพธ์</h3>
-        <div className="text-5xl font-bold text-rose-500 mb-4">
-          {score}/{questions.length}
-        </div>
-        <p className="text-slate-600 mb-6 font-prompt">
-          {score >= 3 ? "คุณรู้จักคนรักดีมาก!" : "ลองเรียนรู้กันมากขึ้นนะ!"}
-        </p>
-        <button
-          onClick={reset}
-          className="px-6 py-3 bg-rose-500 rounded-full text-white hover:bg-rose-600 transition shadow-md font-prompt"
-        >
-          เล่นอีกครั้ง
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-white p-6 rounded-3xl max-w-lg mx-auto shadow-lg border border-rose-100">
-      <div className="text-sm text-slate-400 mb-2 font-prompt">
-        คำถาม {currentQ + 1}/{questions.length}
-      </div>
-      <h3 className="text-xl font-dancing text-rose-800 mb-6">
-        {questions[currentQ].q}
-      </h3>
-      <div className="space-y-3">
-        {questions[currentQ].options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => handleAnswer(i)}
-            className="w-full p-4 text-left rounded-xl bg-slate-50 hover:bg-rose-50 hover:border-rose-200 transition text-slate-600 border border-slate-200 font-prompt"
-          >
-            {opt}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // Wheel of Love Component
 function WheelOfLove() {
   const [rotation, setRotation] = useState(0);
@@ -258,11 +171,11 @@ function WheelOfLove() {
 // Balloon Pop Component
 function BalloonPop() {
   const [balloons, setBalloons] = useState([
-    { id: 1, msg: "คิดถึงเธอทุกวัน 💕", color: "#FF6B9D", popped: false },
-    { id: 2, msg: "เธอคือคนพิเศษ ❤️", color: "#C44569", popped: false },
-    { id: 3, msg: "รักเธอที่สุด 💖", color: "#FFD700", popped: false },
-    { id: 4, msg: "ขอบคุณที่มีเธอ 🌹", color: "#FF69B4", popped: false },
-    { id: 5, msg: "อยากอยู่กับเธอตลอดไป 💗", color: "#FF1493", popped: false },
+    { id: 1, msg: "คิดถึงหนูทุกวัน 💕", color: "#FF6B9D", popped: false },
+    { id: 2, msg: "หนูคือคนพิเศษ ❤️", color: "#C44569", popped: false },
+    { id: 3, msg: "รักหนูที่สุด 💖", color: "#FFD700", popped: false },
+    { id: 4, msg: "ขอบคุณที่มีหนู 🌹", color: "#FF69B4", popped: false },
+    { id: 5, msg: "อยากอยู่กับหนูตลอดไป 💗", color: "#FF1493", popped: false },
   ]);
 
   const pop = (id) => {
@@ -324,7 +237,7 @@ export default function GamesPage() {
       case "memory":
         return <MemoryGame />;
       case "quiz":
-        return <LoveQuiz />;
+        return <LoveQuiz onBack={() => setActiveGame(null)} />;
       case "wheel":
         return <WheelOfLove />;
       case "balloons":
@@ -364,16 +277,20 @@ export default function GamesPage() {
         </div>
       ) : (
         <div className="max-w-4xl mx-auto">
-          <button
-            onClick={() => setActiveGame(null)}
-            className="mb-4 text-rose-500 hover:text-rose-700 transition flex items-center gap-2 font-prompt"
-          >
-            ← กลับเมนูเกม
-          </button>
-          <h2 className="text-3xl font-dancing text-rose-800 text-center mb-6">
-            {games.find((g) => g.id === activeGame)?.icon}{" "}
-            {games.find((g) => g.id === activeGame)?.title}
-          </h2>
+          {activeGame !== "quiz" && (
+            <button
+              onClick={() => setActiveGame(null)}
+              className="mb-4 text-rose-500 hover:text-rose-700 transition flex items-center gap-2 font-prompt"
+            >
+              ← กลับเมนูเกม
+            </button>
+          )}
+          {activeGame !== "quiz" && (
+            <h2 className="text-3xl font-dancing text-rose-800 text-center mb-6">
+              {games.find((g) => g.id === activeGame)?.icon}{" "}
+              {games.find((g) => g.id === activeGame)?.title}
+            </h2>
+          )}
           {renderGame()}
         </div>
       )}

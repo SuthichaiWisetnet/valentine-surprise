@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import FloatingHearts from "../components/FloatingHearts";
 
 export default function GalleryPage() {
@@ -9,17 +10,35 @@ export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const photos = [
-    { id: 1, gradient: "from-pink-400 to-rose-500", heart: "💕" },
-    { id: 2, gradient: "from-rose-400 to-pink-500", heart: "💖" },
-    { id: 3, gradient: "from-purple-400 to-pink-500", heart: "❤️" },
-    { id: 4, gradient: "from-pink-500 to-red-400", heart: "💗" },
-    { id: 5, gradient: "from-red-400 to-rose-500", heart: "💕" },
-    { id: 6, gradient: "from-rose-500 to-pink-400", heart: "💘" },
+    { id: 1, src: "/1.jpg", alt: "Photo 1" },
+    { id: 2, src: "/2.jpeg", alt: "Photo 2" },
+    { id: 3, src: "/3.jpeg", alt: "Photo 3" },
+    { id: 4, src: "/4.jpeg", alt: "Photo 4" },
+    { id: 5, src: "/5.JPG", alt: "Photo 5" },
+    { id: 6, src: "/6.PNG", alt: "Photo 6" },
+    { id: 7, src: "/7.PNG", alt: "Photo 7" },
+    { id: 8, src: "/8.jpg", alt: "Photo 8" },
+    { id: 9, src: "/9.jpeg", alt: "Photo 9" },
+    { id: 10, src: "/10.jpeg", alt: "Photo 10" },
+    { id: 11, src: "/11.jpeg", alt: "Photo 11" },
+    { id: 12, src: "/12.jpeg", alt: "Photo 12" },
+    { id: 13, src: "/IMG_6198.png", alt: "Special Photo" },
+    { id: 14, src: "/13.jpg", alt: "Photo 14" },
+    { id: 15, src: "/14.jpg", alt: "Photo 15" },
+    { id: 16, src: "/15.png", alt: "Photo 16" },
   ];
 
   const videos = [
-    { id: 1, title: "ช่วงเวลาพิเศษ", gradient: "from-rose-600 to-pink-700" },
-    { id: 2, title: "ทริปสุดพิเศษ", gradient: "from-pink-600 to-rose-700" },
+    {
+      id: 1,
+      title: "ช่วงเวลาพิเศษ",
+      src: "/Special_moments.mp4",
+    },
+    {
+      id: 2,
+      title: "ทริปสุดพิเศษ",
+      src: "/Trip.mp4",
+    },
   ];
 
   return (
@@ -36,27 +55,27 @@ export default function GalleryPage() {
 
       {/* Photo Gallery Grid */}
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {photos.map((photo) => (
             <div
               key={photo.id}
-              className="gallery-item card-hover rounded-2xl overflow-hidden relative group aspect-square cursor-pointer shadow-md bg-white p-2"
+              className="gallery-item card-hover rounded-2xl overflow-hidden relative group aspect-square cursor-pointer shadow-md bg-white"
               onClick={() => {
                 setSelectedImage(photo);
                 setLightboxOpen(true);
               }}
             >
-              <div
-                className={`w-full h-full rounded-xl bg-linear-to-br ${photo.gradient} flex items-center justify-center`}
-              >
-                <div className="text-center text-white">
-                  <div className="text-5xl mb-2">📷</div>
-                  <p className="text-sm">รูปที่ {photo.id}</p>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                <span className="text-6xl text-rose-500 drop-shadow-md">
-                  {photo.heart}
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                unoptimized // Adding unoptimized to avoid potential format issues like before
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                <span className="text-white text-3xl font-bold opacity-80">
+                  ❤️
                 </span>
               </div>
             </div>
@@ -76,51 +95,50 @@ export default function GalleryPage() {
               key={video.id}
               className="card-hover bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100"
             >
-              <div
-                className={`aspect-video bg-linear-to-br ${video.gradient} flex items-center justify-center`}
-              >
-                <div className="text-center text-white">
-                  <div className="text-6xl mb-3">🎬</div>
-                  <p className="font-prompt">วิดีโอที่ {video.id}</p>
-                  <p className="text-sm opacity-80">( ใส่วิดีโอจริงได้ )</p>
-                </div>
+              <div className="bg-black relative">
+                <video controls className="w-full h-auto block">
+                  <source src={video.src} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
               <div className="p-4">
-                <h3 className="font-prompt text-rose-700">{video.title}</h3>
-                <p className="text-slate-500 text-sm">คำบรรยายวิดีโอ...</p>
+                <h3 className="font-prompt text-rose-700 text-lg">
+                  {video.title}
+                </h3>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Hint */}
-      <div className="text-center mt-10">
-        <p className="text-slate-400 font-prompt text-sm">
-          💡 เพิ่มรูปและวิดีโอจริงได้โดยแทนที่ placeholder
-        </p>
-      </div>
-
       {/* Lightbox */}
-      {lightboxOpen && (
+      {lightboxOpen && selectedImage && (
         <div
-          className="fixed inset-0 bg-white/95 flex items-center justify-center z-50 backdrop-blur-md"
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 backdrop-blur-sm p-4"
           onClick={() => setLightboxOpen(false)}
         >
-          <div
-            className={`w-80 h-80 rounded-2xl shadow-2xl bg-linear-to-br ${selectedImage?.gradient} flex items-center justify-center relative`}
-          >
-            <div className="text-center text-white">
-              <div className="text-8xl mb-4">{selectedImage?.heart}</div>
-              <p className="font-prompt">รูปที่ {selectedImage?.id}</p>
+          <div className="relative max-w-4xl w-full max-h-[90vh] flex items-center justify-center">
+            <div className="relative w-full h-[85vh]">
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                fill
+                className="object-contain rounded-lg shadow-2xl"
+                sizes="100vw"
+                unoptimized
+              />
             </div>
+
+            <button
+              className="absolute -top-12 right-0 md:-right-12 text-white/80 hover:text-white text-4xl font-bold p-2 hover:bg-white/10 rounded-full transition"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxOpen(false);
+              }}
+            >
+              ×
+            </button>
           </div>
-          <button
-            className="absolute top-4 right-4 text-rose-500 text-5xl hover:scale-110 transition drop-shadow-lg"
-            onClick={() => setLightboxOpen(false)}
-          >
-            ×
-          </button>
         </div>
       )}
 

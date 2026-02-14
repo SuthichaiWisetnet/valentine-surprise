@@ -17,10 +17,10 @@ export default function PlaylistPage() {
       duration: "4:23",
     },
     {
-      title: "Just the Way You Are",
-      artist: "Bruno Mars",
-      id: "LjhCEhWiKXk",
-      duration: "3:40",
+      title: "เชื้อไฟ",
+      artist: "HUGO",
+      id: "wJex6piMxKA",
+      duration: "6:21",
     },
     {
       title: "A Thousand Years",
@@ -29,10 +29,10 @@ export default function PlaylistPage() {
       duration: "4:45",
     },
     {
-      title: "Lover",
-      artist: "Taylor Swift",
-      id: "coCZSx6pzaQ", // ID จาก URL youtube?v=...
-      duration: "3:41",
+      title: "รักรักรักรักรักรักรัก",
+      artist: "D GERRARD",
+      id: "vsOP2UTZakQ", // ID จาก URL youtube?v=...
+      duration: "4:37",
     },
   ];
 

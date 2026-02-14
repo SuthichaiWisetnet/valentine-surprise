@@ -92,13 +92,13 @@ export default function SurprisePage() {
       color: "#FF6B9D",
       ribbonColor: "#FFD700",
       message: "💕",
-      title: "รักเธอนะ!",
+      title: "รักหนูนะ!",
     },
     {
       color: "#FFA500",
       ribbonColor: "#FF6B9D",
       message: "🌹",
-      title: "ดอกกุหลาบให้เธอ!",
+      title: "ดอกกุหลาบให้หนู!",
     },
     {
       color: "#9B59B6",
@@ -112,11 +112,11 @@ export default function SurprisePage() {
     setCurrentMessage({
       emoji: "🎉💕🎉",
       title: "สุขสันต์วันวาเลนไทน์!",
-      content: `เธอคือคนที่ทำให้ชีวิตของฉันมีความหมาย
+      content: `หนูคือคนที่ทำให้ชีวิตของพี่มีความหมาย
 
 ขอบคุณที่เข้ามาในชีวิต ขอบคุณที่รักกัน ขอบคุณที่อยู่ด้วยกันมาจนถึงวันนี้
 
-สัญญาว่าจะรักเธอตลอดไป... 💕
+สัญญาว่าจะรักพี่ตลอดไป... 💕
 
 Happy Valentine's Day! 🌹❤️🌹`,
     });
