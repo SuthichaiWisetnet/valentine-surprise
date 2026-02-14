@@ -82,7 +82,6 @@ export default function GalleryPage() {
                   height={500}
                   className="polaroid-img"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                  unoptimized
                 />
                 <div className="mt-3 text-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="font-handwriting text-slate-500 text-lg">
@@ -141,7 +140,6 @@ export default function GalleryPage() {
                   width={800}
                   height={800}
                   className="object-contain max-h-[70vh] w-auto mx-auto border border-gray-200"
-                  unoptimized
                 />
               </div>
             </div>

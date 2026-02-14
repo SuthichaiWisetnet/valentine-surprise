@@ -56,7 +56,6 @@ export default function AnniversaryPage() {
               width={400}
               height={400}
               className="polaroid-img"
-              unoptimized
             />
           </div>
           <div className="text-center">
