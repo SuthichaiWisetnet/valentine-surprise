@@ -163,7 +163,7 @@ export default function SurprisePage() {
       <FloatingHearts />
 
       {/* Header */}
-      <div className="text-center mb-16 animate-fade-in-up md:pt-8 bg-white/60 p-6 inline-block mx-auto rounded-sm shadow-sm transform rotate-1 border border-slate-200">
+      <div className="text-center mb-16 animate-fade-in-up md:pt-8 bg-white/60 p-6 w-fit mx-auto rounded-sm shadow-sm transform rotate-1 border border-slate-200">
         <h1 className="text-5xl md:text-7xl font-dancing font-bold text-rose-800 mb-2">
           Surprise Box 🎁
         </h1>
