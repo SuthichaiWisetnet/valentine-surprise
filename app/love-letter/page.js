@@ -10,15 +10,15 @@ export default function LoveLetterPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [showFullLetter, setShowFullLetter] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [letterText, setLetterText] = useState(`สวัสดีที่รัก,
-
-นี่คือจดหมายที่เขียนจากใจ อยากบอกว่ารักเธอมากแค่ไหน...
-
-ตั้งแต่วันที่เราเจอกัน ชีวิตก็เปลี่ยนไป ทุกวันที่มีเธออยู่ข้างๆ คือวันที่มีความสุขที่สุด
-
-ขอบคุณที่เป็นเธอ ขอบคุณที่อยู่เคียงข้าง ขอบคุณที่รักกันมาตลอด
-
-รักเธอนะ... ตลอดไป 💕`);
+  const [letterText, setLetterText] = useState(`ถึง หนู,
+  
+  พี่เขียนจดหมายฉบับนี้ขึ้นมา เพราะอยากบอกความในใจที่บางทีพี่อาจจะพูดออกมาไม่เก่ง แต่ทุกตัวอักษรมาจากใจของพี่จริง ๆ
+  
+  ขอบคุณหนูนะที่เข้ามาเป็นเรื่องราวดี ๆ ในชีวิตพี่ ตั้งแต่มีหนูอยู่ข้าง ๆ โลกของพี่ก็สดใสขึ้นเยอะเลย หนูรู้ไหมว่ารอยยิ้มของหนูคือกำลังใจสำคัญของพี่ เวลาเหนื่อย ๆ แค่ได้เห็นหน้าหนู หรือได้ยินเสียงหนู พี่ก็หายเหนื่อยแล้ว
+  
+  ขอบคุณที่เข้าใจและอยู่เคียงข้างกันมาตลอด ไม่ว่าจะเจอกับอะไร พี่อุ่นใจเสมอที่มีหนู พี่สัญญาว่าจะดูแลหนูให้ดีที่สุด จะทำให้หนูยิ้มได้ในทุก ๆ วัน และจะรักหนูให้มากขึ้นในทุก ๆ วินาที
+  
+  รักหนูที่สุดนะครับ 💕`);
 
   const openEnvelope = () => {
     if (isOpen) return;
@@ -120,7 +120,7 @@ export default function LoveLetterPage() {
             <div className="text-center mb-6">
               <div className="text-5xl mb-2">💌</div>
               <h2 className="text-3xl font-dancing text-rose-800">
-                ถึงคนที่รักที่สุด
+                ถึงหนูที่รัก
               </h2>
             </div>
 
@@ -133,60 +133,14 @@ export default function LoveLetterPage() {
 
             {/* Signature */}
             <div className="text-right mt-6">
-              <p className="text-slate-500 font-prompt">ด้วยรักและคิดถึง</p>
+              <p className="text-slate-500 font-prompt">รักเสมอ</p>
               <p className="text-3xl font-dancing text-rose-600 mt-2">
-                จากคนที่รักเธอ 💕
+                จากพี่วุ้น 💕
               </p>
             </div>
           </div>
-
-          {/* Edit Button */}
-          <div className="text-center mt-8">
-            <button
-              onClick={() => setIsEditing(true)}
-              className="px-8 py-4 bg-rose-500 rounded-full text-white text-lg font-prompt shadow-md hover:bg-rose-600 hover:scale-105 transition"
-            >
-              ✍️ แก้ไขจดหมาย
-            </button>
-          </div>
         </div>
       )}
-
-      {/* Edit Form */}
-      {isEditing && (
-        <div className="max-w-2xl mx-auto w-full">
-          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-rose-100">
-            <h3 className="text-2xl font-dancing text-rose-800 text-center mb-6">
-              ✍️ เขียนจดหมายรัก
-            </h3>
-            <textarea
-              value={letterText}
-              onChange={(e) => setLetterText(e.target.value)}
-              rows={10}
-              className="w-full p-4 rounded-xl bg-slate-50 text-slate-700 font-prompt text-lg focus:outline-none focus:ring-2 focus:ring-rose-200 border border-slate-200"
-              placeholder="เขียนข้อความจากใจของคุณ..."
-            />
-            <div className="flex gap-4 mt-4 justify-center">
-              <button
-                onClick={() => {
-                  setIsEditing(false);
-                  createConfetti();
-                }}
-                className="px-6 py-3 bg-rose-500 rounded-full text-white font-prompt hover:bg-rose-600 hover:scale-105 transition shadow-md"
-              >
-                💾 บันทึก
-              </button>
-              <button
-                onClick={() => setIsEditing(false)}
-                className="px-6 py-3 bg-slate-100 rounded-full text-slate-600 font-prompt hover:bg-slate-200 transition"
-              >
-                ยกเลิก
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <Link
         href="/"
         className="mt-8 text-slate-500 hover:text-rose-500 transition font-prompt flex items-center justify-center gap-2"
