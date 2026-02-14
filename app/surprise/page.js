@@ -158,11 +158,11 @@ Happy Valentine's Day! 🌹❤️🌹`,
       <FloatingHearts />
 
       {/* Header */}
-      <div className="text-center mb-12 animate-fade-in-up">
-        <h1 className="text-5xl md:text-7xl font-dancing font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)] mb-4">
+      <div className="text-center mb-12 animate-fade-in-up md:pt-8">
+        <h1 className="text-5xl md:text-7xl font-dancing font-bold text-rose-800 drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)] mb-4">
           🎁 <span className="text-gradient drop-shadow-none">เซอร์ไพรส์</span>
         </h1>
-        <p className="text-white/90 font-prompt text-xl drop-shadow-md">
+        <p className="text-rose-700 font-prompt text-xl bg-white/50 backdrop-blur-sm px-6 py-2 rounded-full inline-block shadow-sm">
           ของขวัญแด่คนพิเศษ
         </p>
       </div>
@@ -251,11 +251,14 @@ Happy Valentine's Day! 🌹❤️🌹`,
         </div>
       )}
 
+      {/* Fixed Back Button */}
       <Link
         href="/"
-        className="mt-16 inline-flex items-center gap-2 text-white/80 hover:text-white transition font-prompt bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full backdrop-blur-sm border border-white/30"
+        className="fixed bottom-6 right-6 z-50 bg-white/80 hover:bg-white text-rose-500 hover:text-rose-600 p-4 rounded-full shadow-lg backdrop-blur-md transition-all hover:scale-110 hover:shadow-rose-200 border border-rose-100 group"
       >
-        <span>🏠</span> กลับหน้าหลัก
+        <span className="text-2xl block group-hover:-translate-x-1 transition-transform">
+          🏠
+        </span>
       </Link>
     </main>
   );

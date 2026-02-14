@@ -46,13 +46,13 @@ export default function GalleryPage() {
       <FloatingHearts />
 
       {/* Header */}
-      <div className="text-center mb-12 animate-fade-in-up">
-        <h1 className="text-5xl md:text-7xl font-dancing font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)] mb-4">
+      <div className="text-center mb-12 animate-fade-in-up md:pt-8">
+        <h1 className="text-4xl md:text-7xl font-dancing font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)] mb-4">
           📸 <span className="text-gradient drop-shadow-none">แกลเลอรี่</span>
           ความทรงจำ
         </h1>
-        <div className="glass inline-block px-6 py-2">
-          <p className="text-rose-700 font-prompt text-lg">
+        <div className="glass inline-block px-6 py-2 rounded-full">
+          <p className="text-rose-700 font-prompt text-lg font-medium">
             รวมภาพประทับใจของเรา 💕
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function GalleryPage() {
                 setLightboxOpen(true);
               }}
             >
-              <div className="glass-card overflow-hidden p-2 transform transition-all duration-300 group-hover:rotate-2 group-hover:scale-[1.02]">
+              <div className="glass-card overflow-hidden p-2 transform transition-all duration-300 group-hover:rotate-1 group-hover:scale-[1.02]">
                 <div className="relative rounded-xl overflow-hidden shadow-inner">
                   <Image
                     src={photo.src}
@@ -95,16 +95,19 @@ export default function GalleryPage() {
       </div>
 
       {/* Video Section */}
-      <div className="max-w-5xl mx-auto mt-12 animate-slide-up">
+      <div className="max-w-5xl mx-auto mt-12 animate-slide-up pb-12">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-dancing font-bold text-white drop-shadow-md mb-2">
+          <h2 className="text-4xl font-dancing font-bold text-rose-800 drop-shadow-sm mb-2 bg-white/40 backdrop-blur-sm inline-block px-8 py-2 rounded-full">
             🎥 วิดีโอความทรงจำ
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {videos.map((video) => (
-            <div key={video.id} className="glass-card p-4 group">
+            <div
+              key={video.id}
+              className="glass-card p-4 group transition-all duration-300 hover:shadow-xl"
+            >
               <div className="rounded-xl overflow-hidden shadow-lg border border-white/20 relative">
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
                 <video controls className="w-full h-auto block relative z-0">
@@ -131,7 +134,7 @@ export default function GalleryPage() {
           <div className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center">
             {/* Glossy Image Container */}
             <div className="relative w-full h-[80vh] p-2 glass rounded-2xl shadow-[0_0_50px_rgba(255,107,157,0.3)]">
-              <div className="relative w-full h-full rounded-xl overflow-hidden bg-black">
+              <div className="relative w-full h-full rounded-xl overflow-hidden bg-black flex items-center justify-center">
                 <Image
                   src={selectedImage.src}
                   alt={selectedImage.alt}
@@ -144,7 +147,7 @@ export default function GalleryPage() {
             </div>
 
             <button
-              className="mt-6 px-8 py-3 bg-white/20 hover:bg-white/40 border border-white/50 text-white rounded-full font-prompt transition backdrop-blur-md flex items-center gap-2"
+              className="mt-6 px-8 py-3 bg-white/20 hover:bg-white/40 border border-white/50 text-white rounded-full font-prompt transition backdrop-blur-md flex items-center gap-2 font-medium"
               onClick={(e) => {
                 e.stopPropagation();
                 setLightboxOpen(false);
@@ -156,11 +159,14 @@ export default function GalleryPage() {
         </div>
       )}
 
+      {/* Fixed Back Button */}
       <Link
         href="/"
-        className="mt-16 inline-flex items-center gap-2 text-white/80 hover:text-white transition font-prompt bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full backdrop-blur-sm border border-white/30"
+        className="fixed bottom-6 right-6 z-50 bg-white/80 hover:bg-white text-rose-500 hover:text-rose-600 p-4 rounded-full shadow-lg backdrop-blur-md transition-all hover:scale-110 hover:shadow-rose-200 border border-rose-100 group"
       >
-        <span>🏠</span> กลับหน้าหลัก
+        <span className="text-2xl block group-hover:-translate-x-1 transition-transform">
+          🏠
+        </span>
       </Link>
     </main>
   );

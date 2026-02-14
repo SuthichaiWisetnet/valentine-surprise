@@ -66,20 +66,21 @@ function MemoryGame() {
   };
 
   return (
-    <div className="text-center">
-      <p className="text-slate-600 mb-4 font-prompt">
+    <div className="text-center animate-fade-in-up">
+      <p className="text-slate-600 mb-6 font-prompt text-lg bg-white/50 inline-block px-4 py-1 rounded-full backdrop-blur-sm">
         จับคู่การ์ดที่เหมือนกัน! (ครั้งที่เปิด: {moves})
       </p>
-      <div className="flex flex-wrap justify-center gap-3 max-w-md mx-auto">
+      <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
         {cards.map((card, i) => (
           <div
             key={card.id}
             onClick={() => handleFlip(i)}
-            className={`w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center text-3xl cursor-pointer transition-all duration-300 border ${
+            className={`w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center text-3xl cursor-pointer transition-all duration-500 transform hover:scale-105 shadow-md ${
               flipped.includes(i) || matched.includes(i)
-                ? "bg-white shadow-sm border-rose-200 rotate-y-180"
-                : "bg-rose-400 shadow-md border-rose-500 text-transparent"
+                ? "bg-white rotate-y-180 border-2 border-rose-200"
+                : "bg-linear-to-br from-rose-400 to-pink-500 text-transparent border-2 border-white/50"
             }`}
+            style={{ perspective: "1000px" }}
           >
             {flipped.includes(i) || matched.includes(i) ? card.emoji : "💖"}
           </div>
@@ -87,9 +88,9 @@ function MemoryGame() {
       </div>
       <button
         onClick={initGame}
-        className="mt-6 px-6 py-2 bg-rose-500 rounded-full text-white hover:bg-rose-600 transition shadow-md font-prompt"
+        className="mt-8 px-8 py-3 bg-white hover:bg-rose-50 text-rose-500 rounded-full font-prompt font-semibold transition shadow-lg border border-rose-100 hover:scale-105"
       >
-        เริ่มใหม่
+        🔄 เริ่มใหม่
       </button>
     </div>
   );
@@ -127,41 +128,45 @@ function WheelOfLove() {
   };
 
   return (
-    <div className="text-center">
-      <p className="text-slate-600 mb-6 font-prompt">
+    <div className="text-center animate-fade-in-up">
+      <p className="text-slate-600 mb-8 font-prompt text-lg bg-white/50 inline-block px-4 py-1 rounded-full backdrop-blur-sm">
         หมุนวงล้อเพื่อรับคำสัญญา!
       </p>
-      <div className="relative inline-block mb-6">
-        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-3xl z-10 text-rose-500">
+      <div className="relative inline-block mb-8">
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-4xl z-20 text-rose-600 drop-shadow-md">
           🔽
         </div>
-        <div
-          className="w-64 h-64 rounded-full relative shadow-xl"
-          style={{
-            background:
-              "conic-gradient(#FF6B9D 0deg 45deg, #C44569 45deg 90deg, #FFD700 90deg 135deg, #FF69B4 135deg 180deg, #FF6B9D 180deg 225deg, #C44569 225deg 270deg, #FFD700 270deg 315deg, #FF69B4 315deg 360deg)",
-            transform: `rotate(${rotation}deg)`,
-            transition: spinning
-              ? "transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)"
-              : "none",
-          }}
-        >
-          <div className="absolute inset-4 rounded-full bg-white flex items-center justify-center shadow-inner">
-            <span className="text-4xl">💕</span>
+        <div className="p-2 glass rounded-full inline-block">
+          <div
+            className="w-64 h-64 md:w-80 md:h-80 rounded-full relative shadow-2xl border-4 border-white/50"
+            style={{
+              background:
+                "conic-gradient(#FF6B9D 0deg 45deg, #C44569 45deg 90deg, #FFD700 90deg 135deg, #FF69B4 135deg 180deg, #FF6B9D 180deg 225deg, #C44569 225deg 270deg, #FFD700 270deg 315deg, #FF69B4 315deg 360deg)",
+              transform: `rotate(${rotation}deg)`,
+              transition: spinning
+                ? "transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)"
+                : "none",
+            }}
+          >
+            <div className="absolute inset-4 md:inset-6 rounded-full bg-white flex items-center justify-center shadow-inner">
+              <span className="text-4xl md:text-6xl animate-pulse">💕</span>
+            </div>
           </div>
         </div>
       </div>
       <button
         onClick={spin}
         disabled={spinning}
-        className="block mx-auto px-8 py-4 bg-rose-500 rounded-full text-white text-xl shadow-md hover:bg-rose-600 hover:scale-105 transition disabled:opacity-50 font-prompt"
+        className="block mx-auto px-10 py-4 bg-linear-to-r from-rose-500 to-pink-500 rounded-full text-white text-xl shadow-lg hover:shadow-rose-300 hover:scale-105 transition disabled:opacity-70 disabled:scale-100 font-prompt font-bold"
       >
         {spinning ? "กำลังหมุน..." : "หมุนเลย! 🎉"}
       </button>
       {result && (
-        <div className="mt-6 bg-white border border-rose-100 p-6 rounded-2xl animate-bounce-in shadow-lg">
-          <div className="text-4xl mb-2">🎁</div>
-          <p className="text-rose-600 text-xl font-prompt">{result}</p>
+        <div className="mt-8 glass p-6 rounded-2xl animate-bounce-in shadow-xl max-w-sm mx-auto border-2 border-white/60">
+          <div className="text-5xl mb-2">🎁</div>
+          <p className="text-rose-700 text-2xl font-prompt font-bold">
+            {result}
+          </p>
         </div>
       )}
     </div>
@@ -185,11 +190,11 @@ function BalloonPop() {
   };
 
   return (
-    <div className="text-center">
-      <p className="text-slate-600 mb-6 font-prompt">
+    <div className="text-center animate-fade-in-up">
+      <p className="text-slate-600 mb-8 font-prompt text-lg bg-white/50 inline-block px-4 py-1 rounded-full backdrop-blur-sm">
         กดแตกลูกโป่งเพื่อเผยข้อความ!
       </p>
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-6">
         {balloons.map((balloon) => (
           <div
             key={balloon.id}
@@ -198,22 +203,46 @@ function BalloonPop() {
             style={{ animationDelay: `${balloon.id * 0.2}s` }}
           >
             {balloon.popped ? (
-              <div className="bg-white p-3 rounded-xl animate-bounce-in shadow-sm border border-rose-100">
-                <span className="text-rose-500 text-sm font-prompt">
+              <div className="glass p-4 rounded-xl animate-bounce-in shadow-lg border border-white/50 max-w-37.5">
+                <span className="text-rose-600 text-sm font-prompt font-semibold">
                   {balloon.msg}
                 </span>
               </div>
             ) : (
-              <svg width="60" height="80" viewBox="0 0 60 80">
-                <ellipse cx="30" cy="35" rx="28" ry="35" fill={balloon.color} />
-                <polygon points="30,70 25,75 35,75" fill={balloon.color} />
-                <path
-                  d="M30 75 Q32 85 28 95"
-                  stroke="#888"
-                  strokeWidth="2"
-                  fill="none"
-                />
-              </svg>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-white/30 rounded-full blur-md transform scale-75 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <svg
+                  width="70"
+                  height="90"
+                  viewBox="0 0 60 80"
+                  className="drop-shadow-lg filter group-hover:brightness-110 transition-all"
+                >
+                  <ellipse
+                    cx="30"
+                    cy="35"
+                    rx="28"
+                    ry="35"
+                    fill={balloon.color}
+                  />
+                  <polygon points="30,70 25,75 35,75" fill={balloon.color} />
+                  <path
+                    d="M30 75 Q32 85 28 95"
+                    stroke="#888"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  {/* Shine */}
+                  <ellipse
+                    cx="20"
+                    cy="20"
+                    rx="8"
+                    ry="12"
+                    fill="white"
+                    opacity="0.4"
+                    transform="rotate(-30 20 20)"
+                  />
+                </svg>
+              </div>
             )}
           </div>
         ))}
@@ -248,58 +277,77 @@ export default function GamesPage() {
   };
 
   return (
-    <main className="relative z-10 min-h-screen px-4 py-8 pb-24">
+    <main className="relative z-10 min-h-screen px-4 py-8 pb-24 overflow-hidden">
       <FloatingHearts />
 
       {/* Header */}
-      <div className="text-center mb-8 animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-dancing text-rose-800 mb-2">
+      <div className="text-center mb-10 animate-fade-in-up relative z-20">
+        <h1 className="text-4xl md:text-7xl font-dancing font-bold text-rose-800 mb-4 drop-shadow-sm">
           🎮 <span className="text-gradient">เกม</span>ความรัก
         </h1>
-        <p className="text-slate-600 font-prompt">เล่นเกมสนุกๆ ด้วยกัน</p>
+        <p className="text-slate-600 font-prompt text-lg bg-white/50 backdrop-blur-sm px-4 py-1 rounded-full inline-block shadow-sm">
+          เล่นเกมสนุกๆ สะสมคะแนนความรัก
+        </p>
       </div>
 
       {!activeGame ? (
-        <div className="max-w-4xl mx-auto grid grid-cols-2 gap-4">
-          {games.map((game) => (
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 px-4">
+          {games.map((game, index) => (
             <button
               key={game.id}
               onClick={() => setActiveGame(game.id)}
-              className="card-hover bg-white rounded-2xl p-6 text-center shadow-md border border-rose-50 hover:border-rose-200"
+              className="glass-card p-8 flex flex-col items-center justify-center text-center group hover:bg-white/80 transition-all duration-500"
+              style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="text-5xl mb-3">{game.icon}</div>
-              <h3 className="font-dancing text-xl text-rose-700">
+              <div className="text-6xl mb-6 transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 drop-shadow-md">
+                {game.icon}
+              </div>
+              <h3 className="font-dancing text-3xl text-rose-700 mb-2 font-bold group-hover:text-rose-800">
                 {game.title}
               </h3>
-              <p className="text-slate-500 text-sm">{game.desc}</p>
+              <p className="text-slate-500 text-lg font-prompt">{game.desc}</p>
             </button>
           ))}
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative z-20">
           {activeGame !== "quiz" && (
-            <button
-              onClick={() => setActiveGame(null)}
-              className="mb-4 text-rose-500 hover:text-rose-700 transition flex items-center gap-2 font-prompt"
-            >
-              ← กลับเมนูเกม
-            </button>
+            <div className="mb-6 flex items-center justify-between glass px-6 py-3 rounded-full">
+              <button
+                onClick={() => setActiveGame(null)}
+                className="text-rose-500 hover:text-rose-700 transition flex items-center gap-2 font-prompt font-semibold"
+              >
+                <span className="text-xl">←</span> กลับเมนูเกม
+              </button>
+              <h2 className="text-2xl font-dancing text-rose-800 font-bold hidden md:block">
+                {games.find((g) => g.id === activeGame)?.icon}{" "}
+                {games.find((g) => g.id === activeGame)?.title}
+              </h2>
+              <div className="w-8"></div> {/* Spacer */}
+            </div>
           )}
+          {/* Mobile Title for Game */}
           {activeGame !== "quiz" && (
-            <h2 className="text-3xl font-dancing text-rose-800 text-center mb-6">
+            <h2 className="md:hidden text-3xl font-dancing text-rose-800 text-center mb-8 font-bold animate-fade-in-up">
               {games.find((g) => g.id === activeGame)?.icon}{" "}
               {games.find((g) => g.id === activeGame)?.title}
             </h2>
           )}
-          {renderGame()}
+
+          <div className="glass p-6 md:p-10 rounded-3xl shadow-xl min-h-100 flex flex-col justify-center">
+            {renderGame()}
+          </div>
         </div>
       )}
 
+      {/* Fixed Back Button */}
       <Link
         href="/"
-        className="mt-8 text-slate-500 hover:text-rose-500 transition font-prompt flex items-center justify-center gap-2"
+        className="fixed bottom-6 right-6 z-50 bg-white/80 hover:bg-white text-rose-500 hover:text-rose-600 p-4 rounded-full shadow-lg backdrop-blur-md transition-all hover:scale-110 hover:shadow-rose-200 border border-rose-100 group"
       >
-        🏠 กลับหน้าหลัก
+        <span className="text-2xl block group-hover:-translate-x-1 transition-transform">
+          🏠
+        </span>
       </Link>
     </main>
   );
