@@ -110,7 +110,7 @@ export default function GalleryPage() {
               className="bg-white p-4 shadow-md rotate-1 hover:rotate-0 transition-transform duration-300 border border-gray-100"
             >
               <div className="absolute -top-3 w-24 h-6 bg-rose-100/50 left-1/2 -translate-x-1/2 -rotate-1 shadow-sm z-10"></div>
-              <div className="overflow-hidden bg-black/5 relative aspect-video">
+              <div className="overflow-hidden bg-black/5 relative aspect-9/16">
                 <video controls className="w-full h-full object-cover">
                   <source src={video.src} type="video/mp4" />
                   Your browser does not support the video tag.
