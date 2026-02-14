@@ -139,7 +139,7 @@ Happy Valentine's Day! 🌹❤️🌹`,
       </div>
 
       {/* Gift Boxes Grid */}
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center mb-12">
+      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-8 justify-items-center mb-12">
         {gifts.map((gift, i) => (
           <GiftBox key={i} {...gift} />
         ))}
@@ -152,7 +152,7 @@ Happy Valentine's Day! 🌹❤️🌹`,
         </h2>
 
         {/* Big Gift Box */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-8 mt-12">
           <div
             className="cursor-pointer transform scale-125 hover:scale-150 transition-transform"
             onClick={openSpecialGift}
