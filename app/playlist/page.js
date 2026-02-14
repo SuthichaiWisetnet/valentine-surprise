@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import FloatingHearts from "../components/FloatingHearts";
+import Image from "next/image";
 
 export default function PlaylistPage() {
   const [currentSong, setCurrentSong] = useState(0);
@@ -111,10 +112,12 @@ export default function PlaylistPage() {
           >
             {/* Thumbnail preview - using YouTube thumbnail */}
             <div className="w-16 h-12 rounded-lg bg-slate-200 overflow-hidden mr-4 relative shrink-0">
-              <img
+              <Image
                 src={`https://img.youtube.com/vi/${song.id}/mqdefault.jpg`}
                 alt={song.title}
                 className="w-full h-full object-cover"
+                width={64}
+                height={64}
               />
               {currentSong === index && (
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center text-white text-xs">
